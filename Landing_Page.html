@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniConnect - Student Consultation Services</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #FFFBEE;
+            cursor: default;
+        }
+
+        /* Add cursor styles for interactive elements */
+        a, button, .form-select, .form-input, .form-textarea, input[type="checkbox"] {
+            cursor: pointer;
+        }
+
+        /* Custom cursor for text inputs */
+        .form-input:hover, .form-textarea:hover {
+            cursor: text;
+        }
+
+        /* Remove duplicate cursor definitions */
+        .form-select {
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            border: 1px solid #C41E3A;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #666;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='14' height='8' viewBox='0 0 14 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L7 7L13 1' stroke='%23C41E3A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-button {
+            font-family: "Hedvig Letters Serif", serif;
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 18px;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .submit-button {
+            background-color: #C41E3A;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 14px;
+            margin-top: 15px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .content-wrapper {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 0.5s;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1000;
+        }
+
+        .nav-buttons {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-button:hover {
+            color: #C41E3A;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 10px;
+            padding-top: 40px;
+        }
+
+        .hero-card {
+            background: none;
+            border-radius: 0;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: none;
+            margin-bottom: 40px;
+            max-width: 780px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .typing-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        .header-text {
+            display: block;
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 12px;
+            font-weight: normal;
+            line-height: 1.3;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-title {
+            font-family: "Hedvig Letters Serif", serif;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 1;
+            text-align: center;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .registration-card {
+            background: none;
+            border-radius: 0;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: none;
+        }
+
+        .registration-title {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 40px;
+            font-weight: normal;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #C41E3A;
+        }
+
+        .form-select option {
+            color: #333;
+            padding: 16px;
+        }
+
+        .form-select option:first-child {
+            color: #666;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #C41E3A;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prospective-fields {
+            display: none;
+        }
+
+        .university-fields {
+            display: none;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            box-sizing: border-box;
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #C41E3A;
+        }
+
+        .submit-button:hover {
+            background-color: #a01830;
+        }
+
+        .hedvig-letters-serif {
+            font-family: "Hedvig Letters Serif", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+
+        .footer-link {
+            font-family: "Hedvig Letters Serif", serif;
+            color: #666;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #C41E3A;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="uniconnect-logo.svg" alt="UniConnect" class="logo">
+        <div class="nav-buttons">
+            <button class="nav-button">How it works</button>
+            <button class="nav-button">Contact</button>
+        </div>
+        
+        <div class="hero-card">
+            <div class="typing-container">
+                <h1 class="header-text hedvig-letters-serif">Student-to-student university consultations - Get 
+                    guidance, give guidance</h1>
+            </div>
+            <div class="content-wrapper">
+                <p class="hero-subtitle">
+                    Prospective Students, gain an <span class="italic">unbiased</span> insight and help for your dream university. 
+                    University students, earn money by entering consultation calls giving your true opinion.
+                </p>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="registration-card">
+                <h2 class="registration-title hedvig-letters-serif">Register your interest below!</h2>
+                <form action="https://formspree.io/f/mgvoynyz" method="POST">
+                    <div class="form-group">
+                        <label for="studentType" class="form-label hedvig-letters-serif">Are you a prospective or university student?</label>
+                        <select id="studentType" name="student_type" class="form-select hedvig-letters-serif" required>
+                            <option value="" disabled selected>Choose here</option>
+                            <option value="prospective" class="hedvig-letters-serif">Prospective Student</option>
+                            <option value="university" class="hedvig-letters-serif">University Student</option>
+                        </select>
+                    </div>
+
+                    <div id="prospectiveFields" class="prospective-fields">
+                        <div class="form-group">
+                            <label for="year" class="form-label hedvig-letters-serif">What year are you in?</label>
+                            <select id="year" name="year" class="form-select hedvig-letters-serif">
+                                <option value="" disabled selected>Select your year...</option>
+                                <option value="year12" class="hedvig-letters-serif">Year 12</option>
+                                <option value="year13" class="hedvig-letters-serif">Year 13</option>
+                                <option value="gap" class="hedvig-letters-serif">Gap Year</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label hedvig-letters-serif">Your email address</label>
+                            <input type="email" id="email" name="email" class="form-input hedvig-letters-serif" placeholder="your.name@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="universities" class="form-label hedvig-letters-serif">Which universities are you interested in?</label>
+                            <input type="text" id="universities" name="universities" class="form-input hedvig-letters-serif" placeholder="e.g., Oxford, Cambridge, LSE">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label hedvig-letters-serif">Which services are you interested in? (Select all that apply)</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="generalConsultation" name="services[]" value="General Consultation">
+                                    <label for="generalConsultation" class="hedvig-letters-serif">General Consultation</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="interviewHelp" name="services[]" value="Interview Help">
+                                    <label for="interviewHelp" class="hedvig-letters-serif">Interview Help</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="personalStatement" name="services[]" value="Personal Statement Guidance">
+                                    <label for="personalStatement" class="hedvig-letters-serif">Personal Statement Guidance</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="entranceExam" name="services[]" value="Entrance Exam Tips">
+                                    <label for="entranceExam" class="hedvig-letters-serif">Entrance Exam Tips</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="lifeAtUni" name="services[]" value="Life at University">
+                                    <label for="lifeAtUni" class="hedvig-letters-serif">Life at University</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="academicsExp" name="services[]" value="Academics Experience">
+                                    <label for="academicsExp" class="hedvig-letters-serif">Academics Experience</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalInterests" class="form-label hedvig-letters-serif">Anything else you're interested in?</label>
+                            <textarea id="additionalInterests" name="additional_interests" class="form-textarea hedvig-letters-serif" placeholder="Tell us about any other interests or questions you have..."></textarea>
+                        </div>
+                    </div>
+
+                    <div id="universityFields" class="university-fields">
+                        <div class="form-group">
+                            <label for="uniName" class="form-label hedvig-letters-serif">Which university do you attend?</label>
+                            <input type="text" id="uniName" name="university_name" class="form-input hedvig-letters-serif" placeholder="e.g., Oxford, UCL, Imperial, Durham ...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="uniEmail" class="form-label hedvig-letters-serif">Your university email address</label>
+                            <input type="email" id="uniEmail" name="university_email" class="form-input hedvig-letters-serif" placeholder="name@university.ac.uk/.edu">
+                            <small style="color: #666; font-size: 12px; margin-top: 4px; display: block;" class="hedvig-letters-serif">Please use your university email address (e.g., ending in .ac.uk or .edu)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="course" class="form-label hedvig-letters-serif">What's your course?</label>
+                            <input type="text" id="course" name="course" class="form-input hedvig-letters-serif" placeholder="e.g., Economics, Chemistry, Business, History">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="discussTopics" class="form-label hedvig-letters-serif">What aspects of university life would you be comfortable discussing?</label>
+                            <textarea id="discussTopics" name="discussion_topics" class="form-textarea hedvig-letters-serif" placeholder="Tell us what you'd be happy to share with prospective students..."></textarea>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="_next" value="https://your-website.com/success.html">
+                    <button type="submit" class="submit-button hedvig-letters-serif">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms & Conditions</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('studentType').addEventListener('change', function() {
+            const prospectiveFields = document.getElementById('prospectiveFields');
+            const universityFields = document.getElementById('universityFields');
+            if (this.value === 'prospective') {
+                prospectiveFields.style.display = 'block';
+                universityFields.style.display = 'none';
+            } else if (this.value === 'university') {
+                universityFields.style.display = 'block';
+                prospectiveFields.style.display = 'none';
+            } else {
+                prospectiveFields.style.display = 'none';
+                universityFields.style.display = 'none';
+            }
+        });
+
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const studentType = document.getElementById('studentType').value;
+            
+            if (studentType === 'university') {
+                const uniEmail = document.getElementById('uniEmail').value.toLowerCase();
+                
+                // Check if email ends with .ac.uk or .edu
+                if (!uniEmail.endsWith('.ac.uk') && !uniEmail.endsWith('.edu')) {
+                    alert('Please use a valid university email address ending in .ac.uk or .edu');
+                    return;
+                }
+
+                // Additional required fields for university students
+                const uniName = document.getElementById('uniName').value;
+                const course = document.getElementById('course').value;
+                const discussTopics = document.getElementById('discussTopics').value;
+
+                if (!uniName || !course || !discussTopics) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+            } else if (studentType === 'prospective') {
+                // Required fields for prospective students
+                const email = document.getElementById('email').value;
+                const year = document.getElementById('year').value;
+                const universities = document.getElementById('universities').value;
+
+                if (!email || !year || !universities) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+            }
+
+            // If validation passes, submit the form
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Redirect to success page
+                    window.location.href = 'success.html';
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                alert('Oops! There was a problem submitting your form. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html> 
